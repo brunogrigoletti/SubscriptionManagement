@@ -1,8 +1,11 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess;
 
 import java.util.Date;
+import jakarta.persistence.*;
 
+@Entity
 public class Subscription {
+    @Id
     private long code;
     private Application app;
     private Client client;

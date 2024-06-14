@@ -1,6 +1,10 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Client {
+    @Id
     private long code;
     private String name;
     private String email;
