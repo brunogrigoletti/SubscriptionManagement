@@ -8,6 +8,9 @@ public class Client {
     private long code;
     private String name;
     private String email;
+
+    protected Client() {
+    }
     
     public Client(long code, String name, String email) {
         this.code = code;

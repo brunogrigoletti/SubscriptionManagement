@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SubscriptionmanagementApplication<subscriptionmanagement>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.pucrs.bruno.laitano.subscriptionmanagement.SubscriptionmanagementApplication",
+            "projectName": "subscriptionmanagement",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

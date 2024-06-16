@@ -8,6 +8,9 @@ public class Application {
     private long code;
     private String name;
     private float monthlyCost;
+
+    protected Application () {
+    }
     
     public Application(long code, String name, float monthlyCost) {
         this.code = code;

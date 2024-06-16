@@ -11,6 +11,9 @@ public class Subscription {
     private Client client;
     private Date startDate;
     private Date endDate;
+
+    protected Subscription() {
+    }
     
     public Subscription(long code, Application app, Client client, Date startDate, Date endDate) {
         this.code = code;

@@ -1,8 +1,15 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess;
 
+import jakarta.persistence.*;
+
+@Entity
 public class User {
+    @Id
     private String id;
     private String password;
+
+    protected User() {
+    }
 
     public User(String id, String password) {
         this.id = id;
@@ -25,4 +32,8 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "User [id=" + getId() + ", password=" + getPassword() + "]";
+    }
 }

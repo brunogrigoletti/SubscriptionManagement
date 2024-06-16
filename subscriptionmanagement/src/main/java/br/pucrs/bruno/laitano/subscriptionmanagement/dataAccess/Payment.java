@@ -1,13 +1,19 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess;
 
 import java.sql.Date;
+import jakarta.persistence.*;
 
+@Entity
 public class Payment {
+    @Id
     private Long code;
     private Subscription subscription;
     private Double paymentValue;
     private Date paymentDate;
     private String promotion;
+
+    protected Payment() {
+    }
 
     public Payment(Long code, Subscription subscription, Double paymentValue, Date paymentDate, String promotion) {
         this.code = code;
@@ -55,5 +61,11 @@ public class Payment {
 
     public void setPromotion(String promotion) {
         this.promotion = promotion;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment [code=" + getCode() + ", subscription=" + getSubscription() + ", paymentValue=" + getPaymentValue()
+                + ", paymentDate=" + getPaymentDate() + ", promotion=" + getPromotion() + "]";
     }
 }
