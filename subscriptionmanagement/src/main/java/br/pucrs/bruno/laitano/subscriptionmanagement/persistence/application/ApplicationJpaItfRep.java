@@ -1,4 +1,4 @@
-package br.pucrs.bruno.laitano.subscriptionmanagement.persistence;
+package br.pucrs.bruno.laitano.subscriptionmanagement.persistence.application;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;

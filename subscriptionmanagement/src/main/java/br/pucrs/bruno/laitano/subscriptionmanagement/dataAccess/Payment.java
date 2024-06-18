@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Payment {
     @Id
-    private Long code;
+    private long code;
     private Subscription subscription;
     private Double paymentValue;
     private Date paymentDate;
