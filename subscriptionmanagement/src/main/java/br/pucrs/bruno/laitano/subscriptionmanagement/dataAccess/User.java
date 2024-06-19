@@ -8,6 +8,8 @@ public class User {
     private long code;
     private String username;
     private String password;
+    @OneToMany (mappedBy= "user")
+    private List<Application> apps;
 
     protected User() {
     }
@@ -16,6 +18,7 @@ public class User {
         this.code = code;
         this.username = username;
         this.password = password;
+        this.apps = new Arraylist<>();
     }
 
     public long getCode() {
@@ -46,4 +49,45 @@ public class User {
     public String toString() {
         return "User [code=" + getCode() + ", username=" + getUsername() + ", password=" + getPassword() + "]";
     }
+
+    
+    public List<Application> getApplicationsfromUser(){
+        return this.apps;
+    }
+
+    public boolean addNewApp(Application app){
+        if(apps.contains(app)){
+            return false;
+        }
+        apps.add(app);
+        return true;
+    }
+
+    public boolean removeApp(Application app){
+        if(apps.contains(app)){
+            apps.remove(app);
+        }
+        else{
+            return false;
+        }
+    }
+
+     public boolean removeAppByID(long code){
+        Application app = apps.Stream()
+        .filter( a -> a.getCode().equals(code))
+        .findFirst()
+        .orElse(null);
+
+        if(app == null){
+            return false;
+        }
+        else{
+            apps.remove(app);
+            return true;
+        }
+    }
+
+
+
+
 }
