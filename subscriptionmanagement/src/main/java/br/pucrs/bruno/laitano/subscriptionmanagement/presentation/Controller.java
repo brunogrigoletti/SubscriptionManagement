@@ -23,9 +23,12 @@ public class Controller {
         return "Funcionando!";
     }
 
-    @PostMapping("path")
-    public String postMethodName(@RequestBody String entity) {
-        return entity;
+    @PostMapping("/usuvalido")
+    public boolean postMethodName(@RequestBody long code) {
+        if (users.getUserId(code)!=null) {
+            return true;
+        }
+        return false;
     }
 
     @GetMapping("/servcad/clientes")
