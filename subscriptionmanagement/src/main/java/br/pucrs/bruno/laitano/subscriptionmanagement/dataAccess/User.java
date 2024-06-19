@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name="_USER")
+@Table(name="_user")
 public class User {
     @Id
     private long code;
