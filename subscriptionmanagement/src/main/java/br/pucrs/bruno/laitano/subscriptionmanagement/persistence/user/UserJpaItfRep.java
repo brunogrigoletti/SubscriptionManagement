@@ -4,10 +4,10 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.User;
 
-public interface UserJpaItfRep extends CrudRepository<User,String> {
+public interface UserJpaItfRep extends CrudRepository<User,Long> {
     List<User> findAll();
-    User findById(String id);
+    User findById(long code);
     void delete(User user);
-    void deleteById(String id);
-    boolean existsById(String id);
+    void deleteById(long code);
+    boolean existsById(long code);
 }

@@ -29,8 +29,8 @@ public class UserRepoJpaImpl implements UserRepository {
     }
 
     @Override
-    public User getUserId(String id) {
-        User user = repository.findById(id);
+    public User getUserId(long code) {
+        User user = repository.findById(code);
         return user;
     }   
 }

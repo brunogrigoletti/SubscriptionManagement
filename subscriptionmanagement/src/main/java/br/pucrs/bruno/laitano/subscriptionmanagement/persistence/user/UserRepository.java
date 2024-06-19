@@ -5,5 +5,5 @@ import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.User;
 
 public interface UserRepository {
     List<User> getUsers();
-    User getUserId(String id);
+    User getUserId(long code);
 }

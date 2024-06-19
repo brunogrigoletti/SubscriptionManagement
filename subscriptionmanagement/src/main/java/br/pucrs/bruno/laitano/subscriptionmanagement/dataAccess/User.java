@@ -5,23 +5,33 @@ import jakarta.persistence.*;
 @Entity
 public class User {
     @Id
-    private String id;
+    private long code;
+    private String username;
     private String password;
 
     protected User() {
     }
 
-    public User(String id, String password) {
-        this.id = id;
+    public User(long code, String username, String password) {
+        this.code = code;
+        this.username = username;
         this.password = password;
     }
 
-    public String getId() {
-        return id;
+    public long getCode() {
+        return code;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -34,6 +44,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + getId() + ", password=" + getPassword() + "]";
+        return "User [code=" + getCode() + ", username=" + getUsername() + ", password=" + getPassword() + "]";
     }
 }
