@@ -22,9 +22,9 @@ public class UserRepoJpaImpl implements UserRepository {
         List<User> users = repository.findAll();
         if (users.size() == 0) {
             return new LinkedList<User>();
-        } else {
-            return users.stream()
-                         .toList();
+        }
+        else {
+            return users.stream().toList();
         }
     }
 

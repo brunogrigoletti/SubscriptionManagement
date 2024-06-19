@@ -1,8 +1,8 @@
-INSERT INTO user (code, username, password) VALUES (1, 'user123', 'pass123');
-INSERT INTO user (code, username, password) VALUES (2, 'user456', 'pass456');
-INSERT INTO user (code, username, password) VALUES (3, 'user789', 'pass789');
-INSERT INTO user (code, username, password) VALUES (4, 'user101', 'pass101');
-INSERT INTO user (code, username, password) VALUES (5, 'user202', 'pass202');
+INSERT INTO _user (code, username, password) VALUES (1, 'user123', 'pass123');
+INSERT INTO _user (code, username, password) VALUES (2, 'user456', 'pass456');
+INSERT INTO _user (code, username, password) VALUES (3, 'user789', 'pass789');
+INSERT INTO _user (code, username, password) VALUES (4, 'user101', 'pass101');
+INSERT INTO _user (code, username, password) VALUES (5, 'user202', 'pass202');
 
 INSERT INTO application (code, name, monthlyCost) VALUES (1, 'AppOne', 9.99);
 INSERT INTO application (code, name, monthlyCost) VALUES (2, 'AppTwo', 14.99);

@@ -1,16 +1,18 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess;
 
 import jakarta.persistence.*;
+import java.util.*;
 
 @Entity
+@Table(name="_USER")
 public class User {
     @Id
     private long code;
     private String username;
     private String password;
-    @OneToMany (mappedBy= "user")
+    /* @OneToMany (mappedBy= "user")
     private List<Application> apps;
-
+ */
     protected User() {
     }
 
@@ -18,7 +20,7 @@ public class User {
         this.code = code;
         this.username = username;
         this.password = password;
-        this.apps = new Arraylist<>();
+        //this.apps = new ArrayList<>();
     }
 
     public long getCode() {
@@ -51,7 +53,7 @@ public class User {
     }
 
     
-    public List<Application> getApplicationsfromUser(){
+    /* public List<Application> getApplicationsfromUser(){
         return this.apps;
     }
 
@@ -66,6 +68,7 @@ public class User {
     public boolean removeApp(Application app){
         if(apps.contains(app)){
             apps.remove(app);
+            return true;
         }
         else{
             return false;
@@ -73,8 +76,8 @@ public class User {
     }
 
      public boolean removeAppByID(long code){
-        Application app = apps.Stream()
-        .filter( a -> a.getCode().equals(code))
+        Application app = apps.stream()
+        .filter( a -> a.getCode()==code)
         .findFirst()
         .orElse(null);
 
@@ -85,9 +88,5 @@ public class User {
             apps.remove(app);
             return true;
         }
-    }
-
-
-
-
+    } */
 }
