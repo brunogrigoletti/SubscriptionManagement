@@ -31,7 +31,7 @@ public class Controller {
     }
 
     @PostMapping("/usuvalido")
-    public boolean userValidation(@RequestBody long code) {
+    public boolean userValidation(@RequestBody final Long code) {
         if (users.getUserId(code)!=null) {
             return true;
         }
