@@ -5,16 +5,10 @@ import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Client;
 import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Subscription;
 import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.User;
 import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.application.ApplicationRepoJpaImpl;
-import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.application.ApplicationRepository;
 import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.client.ClientRepoJpaImpl;
-import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.client.ClientRepository;
 import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.payment.PaymentRepoJpaImpl;
-import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.payment.PaymentRepository;
 import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.subscription.SubscriptionRepoJpaImpl;
-import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.subscription.SubscriptionRepository;
 import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.user.UserRepoJpaImpl;
-import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.user.UserRepository;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -69,7 +63,7 @@ public class Controller {
     }
 
     @PostMapping("/servcad/assinaturas")
-    public String createSubscription(@RequestBody Map<String, Long> request) {
+    public Subscription createSubscription(@RequestBody Map<String, Long> request) {
         long clientCode = request.get("clientCode");
         long appCode = request.get("appCode");
         Client client = clients.getClientId(clientCode);
@@ -81,14 +75,19 @@ public class Controller {
         if (!usedCodes.contains(code)){
             usedCodes.add(code);
             Subscription newSub = subs.createSubscription(code, app, client, date, null);
-            return newSub.toString();
+            return newSub;
         }
         else
             return null;
     }
 
     @PostMapping("/servcad/aplicativos/atualizacusto/{idAplicativo}")
-    public Application updateMonthlyCost(@RequestBody final float monthlyCost) {
+    public Application updateMonthlyCost(@PathVariable("idAplicativo") Long appId, @RequestBody final float monthlyCost) {
+        Application app = apps.getAppId(appId);
+        if (monthlyCost<0){
+            app.setMonthlyCost(monthlyCost);
+            return app;
+        }
         return null;
     }
 }

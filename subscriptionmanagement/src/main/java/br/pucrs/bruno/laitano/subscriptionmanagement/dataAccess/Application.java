@@ -30,6 +30,18 @@ public class Application {
         return this.monthlyCost;
     }
 
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMonthlyCost(float monthlyCost) {
+        this.monthlyCost = monthlyCost;
+    }
+
     @Override
     public String toString() {
         return "Application [code=" + getCode() + ", name=" + getName() + ", monthlyCost=" + getMonthlyCost() + "]";

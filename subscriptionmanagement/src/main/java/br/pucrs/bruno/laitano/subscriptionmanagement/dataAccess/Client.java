@@ -30,6 +30,18 @@ public class Client {
         return this.email;
     }
 
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Client [code=" + getCode() + ", name=" + getName() + ", email=" + getEmail() + "]";

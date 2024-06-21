@@ -45,6 +45,26 @@ public class Subscription {
         return this.endDate;
     }
 
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public void setApp(Application app) {
+        this.app = app;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "Subscription [code=" + getCode() + ", app=" + getApp() + ", client=" + getClient() +
