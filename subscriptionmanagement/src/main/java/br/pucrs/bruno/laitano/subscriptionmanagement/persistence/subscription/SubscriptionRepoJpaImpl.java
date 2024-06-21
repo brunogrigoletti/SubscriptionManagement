@@ -1,10 +1,14 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.persistence.subscription;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
+
+import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Application;
+import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Client;
 import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Subscription;
 
 @Repository
@@ -32,5 +36,11 @@ public class SubscriptionRepoJpaImpl implements SubscriptionRepository {
     public Subscription getSubscriptionId(long code) {
         Subscription sub = repository.findById(code);
         return sub;
+    }
+
+    @Override
+    public Subscription createSubscription(long code, Application app, Client client, Date startDate, Date endDate) {
+        Subscription newSub = new Subscription(code, app, client, startDate, endDate);
+        return newSub;
     }
 }

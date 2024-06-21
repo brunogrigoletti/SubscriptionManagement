@@ -4,9 +4,19 @@ import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Application;
 import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Client;
 import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Subscription;
 import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.User;
+import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.application.ApplicationRepoJpaImpl;
 import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.application.ApplicationRepository;
+import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.client.ClientRepoJpaImpl;
 import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.client.ClientRepository;
+import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.payment.PaymentRepoJpaImpl;
+import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.payment.PaymentRepository;
+import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.subscription.SubscriptionRepoJpaImpl;
+import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.subscription.SubscriptionRepository;
+import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.user.UserRepoJpaImpl;
 import br.pucrs.bruno.laitano.subscriptionmanagement.persistence.user.UserRepository;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +24,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestController
 @RequestMapping("/subscriptionmanagement")
 public class Controller {
-    private UserRepository users;
-    private ClientRepository clients;
-    private ApplicationRepository apps;
+    private UserRepoJpaImpl users;
+    private ClientRepoJpaImpl clients;
+    private ApplicationRepoJpaImpl apps;
+    private SubscriptionRepoJpaImpl subs;
+    private PaymentRepoJpaImpl payments;
 
     @Autowired
-    public Controller(UserRepository users, ClientRepository clients, ApplicationRepository apps) {
+    public Controller(UserRepoJpaImpl users, ClientRepoJpaImpl clients, ApplicationRepoJpaImpl apps,
+            SubscriptionRepoJpaImpl subs, PaymentRepoJpaImpl payments) {
         this.users = users;
         this.clients = clients;
         this.apps = apps;
+        this.subs = subs;
+        this.payments = payments;
     }
 
     @GetMapping("")
@@ -54,8 +69,22 @@ public class Controller {
     }
 
     @PostMapping("/servcad/assinaturas")
-    public Subscription createSubscription(@RequestBody final long clientCode, @RequestBody final long appCode) {
-        return null;
+    public String createSubscription(@RequestBody Map<String, Long> request) {
+        long clientCode = request.get("clientCode");
+        long appCode = request.get("appCode");
+        Client client = clients.getClientId(clientCode);
+        Application app = apps.getAppId(appCode);
+        Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Random random = new Random();
+        ArrayList<Long> usedCodes = new ArrayList<>();
+        long code = 6 + random.nextInt(95);
+        if (!usedCodes.contains(code)){
+            usedCodes.add(code);
+            Subscription newSub = subs.createSubscription(code, app, client, date, null);
+            return newSub.toString();
+        }
+        else
+            return null;
     }
 
     @PostMapping("/servcad/aplicativos/atualizacusto/{idAplicativo}")
