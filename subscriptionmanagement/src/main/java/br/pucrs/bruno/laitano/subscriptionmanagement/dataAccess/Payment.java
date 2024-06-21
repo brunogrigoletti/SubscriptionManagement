@@ -3,10 +3,11 @@ package br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess;
 import java.sql.Date;
 import jakarta.persistence.*;
 
-//@Entity
+@Entity
 public class Payment {
-    //@Id
+    @Id
     private long code;
+    @OneToOne
     private Subscription subscription;
     private Double paymentValue;
     private Date paymentDate;

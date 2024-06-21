@@ -3,11 +3,13 @@ package br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess;
 import java.util.Date;
 import jakarta.persistence.*;
 
-//@Entity
+@Entity
 public class Subscription {
-    //@Id
+    @Id
     private long code;
+    @ManyToOne
     private Application app;
+    @ManyToOne
     private Client client;
     private Date startDate;
     private Date endDate;
