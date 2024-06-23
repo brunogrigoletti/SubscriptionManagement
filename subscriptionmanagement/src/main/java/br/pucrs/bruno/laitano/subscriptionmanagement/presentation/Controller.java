@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/subscriptionmanagement")
@@ -45,7 +47,7 @@ public class Controller {
     @PostMapping("/usuvalido")
     public boolean userValidation(@RequestBody Map<String, Long> request) {
         Long code = request.get("code");
-        if (users.getUserId(code)!=null) {
+        if (users.getUserId(code) != null) {
             return true;
         }
         return false;
@@ -95,11 +97,12 @@ public class Controller {
     }
 
     @PostMapping("/servcad/aplicativos/atualizacusto/{idAplicativo}")
-    public Application updateMonthlyCost(@PathVariable("idAplicativo") Long appId, @RequestBody Map<String, Long> request) {
+    public Application updateMonthlyCost(@PathVariable("idAplicativo") Long appId,
+            @RequestBody Map<String, Long> request) {
         float monthlyCost = request.get("monthlyCost");
         Application app = apps.getAppId(appId);
-        if (monthlyCost>0){
-            apps.updateMonthlyCost(app,monthlyCost);
+        if (monthlyCost > 0) {
+            apps.updateMonthlyCost(app, monthlyCost);
             return app;
         }
         return null;
@@ -120,7 +123,7 @@ public class Controller {
     public List<Subscription> getSubscriptionsByClient(@PathVariable("codcli") Long code) {
         List<Subscription> subsClient = new ArrayList<>();
         for (Subscription sub : subs.getSubscriptions()) {
-            if (sub.getClient().getCode()==code) {
+            if (sub.getClient().getCode() == code) {
                 subsClient.add(sub);
             }
         }
@@ -131,7 +134,7 @@ public class Controller {
     public List<Subscription> getSubscriptionsByApp(@PathVariable("codapp") Long code) {
         List<Subscription> subsApp = new ArrayList<>();
         for (Subscription sub : subs.getSubscriptions()) {
-            if (sub.getApp().getCode()==code) {
+            if (sub.getApp().getCode() == code) {
                 subsApp.add(sub);
             }
         }
@@ -153,9 +156,29 @@ public class Controller {
         long code = 6 + random.nextInt(95);
         usedCodes.add(code);
         Payment newPayment = payments.createPayment(code, sub, valuePaid, paymentDate, null);
-        if (newPayment==null)
+        if (newPayment == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         else
             return ResponseEntity.status(HttpStatus.OK).body(newPayment);
     }
+
+    /**
+     * Verify if a determined Subscription remains valid.
+     * 
+     * @return true if subscription status is valid
+     */
+    @GetMapping(" /assinvalida/{codassin}")
+    public boolean checkSubscriptionValidStatus(@PathVariable("codassin") Long subscriptionCode) {
+        try {
+            Subscription sub = subs.getSubscriptionId(subscriptionCode);
+            String status = sub.getType();
+            if (status.equals("ACTIVE")) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }
