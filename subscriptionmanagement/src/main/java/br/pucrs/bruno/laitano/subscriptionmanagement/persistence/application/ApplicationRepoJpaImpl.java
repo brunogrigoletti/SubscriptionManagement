@@ -33,4 +33,10 @@ public class ApplicationRepoJpaImpl implements ApplicationRepository {
         Application app = repository.findById(code);
         return app;
     }
+
+    @Override
+    public void updateMonthlyCost(Application app, float monthlyCost) {
+        app.setMonthlyCost(monthlyCost);
+        repository.save(app);
+    }
 }

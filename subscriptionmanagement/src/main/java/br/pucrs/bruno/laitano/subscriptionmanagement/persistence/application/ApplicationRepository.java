@@ -6,4 +6,5 @@ import br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess.Application;
 public interface ApplicationRepository {
     List<Application> getApps();
     Application getAppId(long code);
+    void updateMonthlyCost(Application app,float monthlyCost);
 }

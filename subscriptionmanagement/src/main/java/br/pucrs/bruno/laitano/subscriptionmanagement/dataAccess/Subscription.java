@@ -1,5 +1,8 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.dataAccess;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import jakarta.persistence.*;
 
@@ -13,6 +16,10 @@ public class Subscription {
     private Client client;
     private Date startDate;
     private Date endDate;
+    @Transient
+    private String type;
+    @Transient
+    private Date paymentDate;
 
     protected Subscription() {
     }
@@ -23,6 +30,23 @@ public class Subscription {
         this.client = client;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    @PostLoad
+    public void calculateTypeAndPaymentDate() {
+        LocalDate endLocalDate = this.endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+        if (endLocalDate.isAfter(currentDate)) {
+            this.type = "ACTIVE";
+        } else {
+            this.type = "INACTIVE";
+        }
+
+        this.paymentDate = new Date(this.startDate.getTime());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.startDate);
+        calendar.set(Calendar.DAY_OF_MONTH, 20);
+        this.paymentDate = calendar.getTime();
     }
 
     public long getCode() {
@@ -45,6 +69,14 @@ public class Subscription {
         return this.endDate;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public Date getPaymentDate() {
+        return this.paymentDate;
+    }
+
     public void setCode(long code) {
         this.code = code;
     }
@@ -65,9 +97,18 @@ public class Subscription {
         this.endDate = endDate;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
     @Override
     public String toString() {
         return "Subscription [code=" + getCode() + ", app=" + getApp() + ", client=" + getClient() +
-                ", startDate=" + getStartDate() + ", endDate=" + getEndDate() + "]";
+            ", startDate=" + getStartDate() + ", endDate=" + getEndDate() + ", type=" + getType() +
+            ", paymentDate=" + getPaymentDate() + "]";
     }
 }

@@ -16,11 +16,11 @@ INSERT INTO client (code, name, email) VALUES (3, 'Carol', 'carol@example.com');
 INSERT INTO client (code, name, email) VALUES (4, 'Dave', 'dave@example.com');
 INSERT INTO client (code, name, email) VALUES (5, 'Eve', 'eve@example.com');
 
-INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (1, 1, 1, '2024-01-01', '2024-12-31');
-INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (2, 2, 2, '2024-02-01', '2024-12-31');
-INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (3, 3, 3, '2024-03-01', '2024-12-31');
-INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (4, 4, 4, '2024-04-01', '2024-12-31');
-INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (5, 5, 5, '2024-05-01', '2024-12-31');
+INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (1, 1, 1, '2023-01-01', '2023-12-31');
+INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (2, 2, 2, '2023-02-01', '2023-12-31');
+INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (3, 3, 3, '2024-03-01', '2025-12-31');
+INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (4, 4, 4, '2024-04-01', '2025-12-31');
+INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (5, 5, 5, '2024-05-01', '2025-12-31');
 
 INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (1, 1, 9.99, '2024-01-05', NULL);
 INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (2, 2, 14.99, '2024-02-05', NULL);

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Payment {
     @Id
     private long code;
-    @OneToOne
+    @ManyToOne
     private Subscription subscription;
     private Double paymentValue;
     private Date paymentDate;
