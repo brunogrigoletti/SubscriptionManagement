@@ -167,7 +167,7 @@ public class Controller {
      * 
      * @return true if subscription status is valid
      */
-    @GetMapping(" /assinvalida/{codassin}")
+    @GetMapping("/assinvalida/{codassin}")
     public boolean checkSubscriptionValidStatus(@PathVariable("codassin") Long subscriptionCode) {
         try {
             Subscription sub = subs.getSubscriptionId(subscriptionCode);
