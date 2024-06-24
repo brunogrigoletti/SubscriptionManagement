@@ -9,9 +9,9 @@ public class Application {
     private String name;
     private float monthlyCost;
 
-    protected Application () {
+    protected Application() {
     }
-    
+
     public Application(long code, String name, float monthlyCost) {
         this.code = code;
         this.name = name;

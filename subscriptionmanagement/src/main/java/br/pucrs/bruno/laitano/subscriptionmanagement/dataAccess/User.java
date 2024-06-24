@@ -4,15 +4,19 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name="_user")
+@Table(name = "_user")
 public class User {
     @Id
     private long code;
     private String username;
     private String password;
-    /* @OneToMany (mappedBy= "user")
+
+    @OneToMany
     private List<Application> apps;
- */
+
+    @ManyToMany
+    private List<Client> clients;
+
     protected User() {
     }
 
@@ -20,7 +24,8 @@ public class User {
         this.code = code;
         this.username = username;
         this.password = password;
-        //this.apps = new ArrayList<>();
+        this.apps = new ArrayList<>();
+        this.clients = new ArrayList<>();
     }
 
     public long getCode() {
@@ -52,41 +57,38 @@ public class User {
         return "User [code=" + getCode() + ", username=" + getUsername() + ", password=" + getPassword() + "]";
     }
 
-    
-    /* public List<Application> getApplicationsfromUser(){
+    public List<Application> getApplicationsfromUser() {
         return this.apps;
     }
 
-    public boolean addNewApp(Application app){
-        if(apps.contains(app)){
+    public boolean addNewApp(Application app) {
+        if (apps.contains(app)) {
             return false;
         }
         apps.add(app);
         return true;
     }
 
-    public boolean removeApp(Application app){
-        if(apps.contains(app)){
+    public boolean removeApp(Application app) {
+        if (apps.contains(app)) {
             apps.remove(app);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-     public boolean removeAppByID(long code){
+    public boolean removeAppByID(long code) {
         Application app = apps.stream()
-        .filter( a -> a.getCode()==code)
-        .findFirst()
-        .orElse(null);
+                .filter(a -> a.getCode() == code)
+                .findFirst()
+                .orElse(null);
 
-        if(app == null){
+        if (app == null) {
             return false;
-        }
-        else{
+        } else {
             apps.remove(app);
             return true;
         }
-    } */
+    }
 }
