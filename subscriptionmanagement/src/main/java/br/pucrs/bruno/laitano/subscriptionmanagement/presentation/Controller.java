@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/subscriptionmanagement")
@@ -79,21 +77,23 @@ public class Controller {
     }
 
     @PostMapping("/servcad/assinaturas")
-    public Subscription createSubscription(@RequestBody Map<String, Long> request) {
+    public ResponseEntity<Subscription> createSubscription(@RequestBody Map<String, Long> request) {
         long clientCode = request.get("clientCode");
         long appCode = request.get("appCode");
         Client client = clients.getClientId(clientCode);
         Application app = apps.getAppId(appCode);
         Date startDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2025, Calendar.DECEMBER, 31, 12, 0, 0);
+        calendar.setTime(startDate);
+        calendar.add(Calendar.YEAR, 1);
         Date endDate = calendar.getTime();
         Random random = new Random();
-        ArrayList<Long> usedCodes = new ArrayList<>();
         long code = 6 + random.nextInt(95);
-        usedCodes.add(code);
         Subscription newSub = subs.createSubscription(code, app, client, startDate, endDate);
-        return newSub;
+        if (newSub == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(newSub);
     }
 
     @PostMapping("/servcad/aplicativos/atualizacusto/{idAplicativo}")
@@ -152,9 +152,7 @@ public class Controller {
         LocalDate localDate = LocalDate.of(year.intValue(), month.intValue(), day.intValue());
         Date paymentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Random random = new Random();
-        ArrayList<Long> usedCodes = new ArrayList<>();
         long code = 6 + random.nextInt(95);
-        usedCodes.add(code);
         Payment newPayment = payments.createPayment(code, sub, valuePaid, paymentDate, null);
         if (newPayment == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -162,11 +160,6 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.OK).body(newPayment);
     }
 
-    /**
-     * Verify if a determined Subscription remains valid.
-     * 
-     * @return true if subscription status is valid
-     */
     @GetMapping("/assinvalida/{codassin}")
     public boolean checkSubscriptionValidStatus(@PathVariable("codassin") Long subscriptionCode) {
         try {
@@ -180,5 +173,4 @@ public class Controller {
             return false;
         }
     }
-
 }

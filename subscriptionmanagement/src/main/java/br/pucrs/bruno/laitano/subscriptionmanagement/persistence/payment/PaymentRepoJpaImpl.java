@@ -1,5 +1,6 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.persistence.payment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -40,9 +41,8 @@ public class PaymentRepoJpaImpl implements PaymentRepository {
     @Override
     public Payment createPayment(Long code, Subscription subscription, Double paymentValue, Date paymentDate,
             String promotion) {
-        if (paymentValue<subscription.getApp().getMonthlyCost()) {
-            System.out.println(paymentValue);
-            System.out.println(subscription.getApp().getMonthlyCost());
+        ArrayList<Long> usedCodes = new ArrayList<>();
+        if (paymentValue<subscription.getApp().getMonthlyCost() || usedCodes.contains(code)) {
             return null;
         }
         else {
@@ -58,7 +58,7 @@ public class PaymentRepoJpaImpl implements PaymentRepository {
             }
             else {
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTime(subscription.getPaymentDate());
+                calendar.setTime(paymentDate);
                 calendar.add(Calendar.DAY_OF_MONTH, 30);
                 oneMoreMonth = calendar.getTime();
             }
@@ -66,6 +66,7 @@ public class PaymentRepoJpaImpl implements PaymentRepository {
             subscription.setType("ACTIVE");
 
             repository.save(newPayment);
+            usedCodes.add(code);
             return newPayment;
         }
     }

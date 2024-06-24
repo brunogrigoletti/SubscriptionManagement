@@ -1,5 +1,6 @@
 package br.pucrs.bruno.laitano.subscriptionmanagement.persistence.subscription;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -40,13 +41,20 @@ public class SubscriptionRepoJpaImpl implements SubscriptionRepository {
 
     @Override
     public Subscription createSubscription(long code, Application app, Client client, Date startDate, Date endDate) {
-        Subscription newSub = new Subscription(code, app, client, startDate, endDate);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(startDate);
-        calendar.add(Calendar.DAY_OF_MONTH, 7);
-        Date freeWeek = calendar.getTime();
-        newSub.setPaymentDate(freeWeek);
-        repository.save(newSub);
-        return newSub;
+        ArrayList<Long> usedCodes = new ArrayList<>();
+        if (!usedCodes.contains(code)) {
+            Subscription newSub = new Subscription(code, app, client, startDate, endDate);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(endDate);
+            calendar.add(Calendar.DAY_OF_MONTH, 7);
+            Date freeWeek = calendar.getTime();
+            newSub.setEndDate(freeWeek);
+            repository.save(newSub);
+            usedCodes.add(code);
+            return newSub;
+        }
+        else {
+            return null;
+        }
     }
 }
