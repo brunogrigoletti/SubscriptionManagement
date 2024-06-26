@@ -19,9 +19,19 @@ public class Payment {
     public Payment(Long code, Subscription subscription, Double paymentValue, Date paymentDate, String promotion) {
         this.code = code;
         this.subscription = subscription;
-        this.paymentValue = paymentValue;
         this.paymentDate = paymentDate;
         this.promotion = promotion;
+        this.paymentValue = paymentValue;
+    }
+
+    @PostLoad
+    public void calculatePromotion() {
+        if (this.promotion.equals("15"))
+            this.paymentValue = paymentValue*0.85;
+        else if (this.promotion.equals("25"))
+            this.paymentValue = paymentValue*0.75;
+        else if (this.promotion.equals("50"))
+            this.paymentValue = paymentValue*0.50;
     }
 
     public Long getCode() {
