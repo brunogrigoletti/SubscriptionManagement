@@ -27,11 +27,11 @@ public class Payment {
     @PostLoad
     public void calculatePromotion() {
         if (this.promotion.equals("15"))
-            this.paymentValue = paymentValue*0.85;
+            this.paymentValue = paymentValue * 0.85;
         else if (this.promotion.equals("25"))
-            this.paymentValue = paymentValue*0.75;
+            this.paymentValue = paymentValue * 0.75;
         else if (this.promotion.equals("50"))
-            this.paymentValue = paymentValue*0.50;
+            this.paymentValue = paymentValue * 0.50;
     }
 
     public Long getCode() {
@@ -76,7 +76,8 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment [code=" + getCode() + ", subscription=" + getSubscription() + ", paymentValue=" + getPaymentValue()
+        return "Payment [code=" + getCode() + ", subscription=" + getSubscription() + ", paymentValue="
+                + getPaymentValue()
                 + ", paymentDate=" + getPaymentDate() + ", promotion=" + getPromotion() + "]";
     }
 }
