@@ -23,7 +23,7 @@ INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VAL
 INSERT INTO subscription (code, app_code, client_code, start_date, end_date) VALUES (5, 5, 5, '2024-05-01', '2025-12-31');
 
 INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (1, 1, 9.99, '2024-01-05', '15');
-INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (2, 2, 14.99, '2024-02-05', '15');
-INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (3, 3, 19.99, '2024-03-05', 'None');
+INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (2, 2, 14.99, '2024-02-05', '25');
+INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (3, 3, 19.99, '2024-03-05', '50');
 INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (4, 4, 7.99, '2024-04-05', 'None');
 INSERT INTO payment (code, subscription_code, payment_value, payment_date, promotion) VALUES (5, 5, 12.99, '2024-05-05', 'None');
