@@ -21,8 +21,10 @@ public class PaymentTest {
         Client client = new Client(3, "name", "email");
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
+        long code = 3;
+        Double value = 300.00;
         Subscription sub = new Subscription(200, app, client, date, date);
-        payment = new Payment(3, sub, 300.00, date, "30");
+        payment = new Payment(code, sub, value, date, "30");
     }
 
     /** Tests if the application of a 15% discount promotion is aplied */
@@ -67,7 +69,8 @@ public class PaymentTest {
 
     @Test
     public void setCodeto3() {
-        payment.setCode(3);
+        long num = 3;
+        payment.setCode(num);
         assertEquals(3, payment.getCode());
     }
 
@@ -84,6 +87,13 @@ public class PaymentTest {
         Date date = calendar.getTime();
         payment.setPaymentDate(date);
         assertEquals(date, payment.getPaymentDate());
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals("Payment [code=" + 3 + ", subscription=" + payment.getSubscription() + ", paymentValue="
+                + 300.00 + ", paymentDate=" + payment.getPaymentDate() + ", promotion=" + payment.getPromotion() + "]",
+                payment.toString());
     }
 
 }
