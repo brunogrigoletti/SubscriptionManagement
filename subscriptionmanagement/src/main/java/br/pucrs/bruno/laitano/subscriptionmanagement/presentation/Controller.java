@@ -153,7 +153,7 @@ public class Controller {
         Date paymentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Random random = new Random();
         long code = 6 + random.nextInt(95);
-        Payment newPayment = payments.createPayment(code, sub, valuePaid, paymentDate, null);
+        Payment newPayment = payments.createPayment(code, sub, valuePaid, paymentDate, "None");
         if (newPayment == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         else
